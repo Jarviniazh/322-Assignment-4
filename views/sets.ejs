@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lego Collection</title>
+  <link rel="stylesheet" href="/css/main.css" />
+
+</head>
+
+<body tabindex="-1">
+  <%- include('partials/navbar', {page:"/lego/sets"}) %>
+
+  <div class="container mx-auto p-4">
+
+    <div class="hero bg-base-200 rounded-lg p-6">
+      <div class="hero-content text-center ">
+        <div class="max-w-md">
+          <h1 class="text-5xl font-bold">Collection</h1>
+          <p class="py-6">
+            Browse through the collection of Lego sets. Click the theme to filter by themes for example: <br />
+            <a href="/lego/sets?theme=technic" class="btn btn-primary">Technic</a>
+            <a href="/lego/sets?theme=classic%20town" class="btn btn-primary">Classic Town</a>
+            <a href="/lego/sets?theme=supplemental" class="btn btn-primary">Supplemental</a>
+          </p>
+
+          <div class="overflow-x-auto overflow-y-hidden">
+            <table class="table table-zebra">
+              <!-- head -->
+              <thead>
+                <tr>
+                  <th>Image</th>
+                  <th>Name</th>
+                  <th>Theme</th>
+                  <th>Year</th>
+                  <th>Number of Parts</th>
+                </tr>
+              </thead>
+
+
+          <% sets.forEach(user=>{ %>
+            <tbody>
+                <tr>
+                  <td>
+                    <!-- <div class="flex items-center gap-3"> -->
+                      <div class="avatar">
+                        <div class="mask mask-squircle h-40 w-40">
+                            <img src="<%= user.img_url %>" alt="Set Image">
+                        </div>
+                      <!-- </div> -->
+                    </div>
+                  </td>
+
+                <td><%= user.name %></td>
+                <td><button class="btn btn-outline btn-success"><a href="/lego/sets?theme=<%= user.theme%>"><%= user.theme %></a><button></td>
+                <td><%= user.year %></td>
+                <td><%= user.num_parts %></td>
+                  <th>
+                    <button class="btn btn-outline btn-info"><a href="/lego/sets/<%= user.set_num %>">Details</a></button>
+                  </th>
+                </tr>
+
+            </tr>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+
+    <br />
+
+</body>
+
+</html>

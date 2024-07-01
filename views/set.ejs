@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lego Collection</title>
+  <link rel="stylesheet" href="/css/main.css" />
+  <script>
+    document.addEventListener("DOMContentLoaded", async()=>{
+
+        /* TODO: "fetch" the data at: https://quotable.io/random and update an element in the DOM with the "content" and "author" */
+        let res = await fetch('https://quotable.io/random');
+        let data = await res.json();
+
+        document.getElementById('quote').innerHTML = `"${data.content}"<br/> -<em>${data.author}</em>`;
+    });
+</script>
+</head>
+
+<body tabindex="-1">
+  <%- include('partials/navbar', {page:""}) %>
+
+  <div class="container mx-auto p-4">
+
+    <div class="hero bg-base-200 rounded-lg p-6">
+        <div class="hero-content text-center ">
+          <div class="max-w-md">
+            <h1 class="text-5xl font-bold"><%= set.name %></h1>
+            <p class="py-6">
+                Below, you will find detailed information about the set: <span class="font-bold" style="color: rgb(82, 0, 107);"><%= set.name %></span>
+            </p>
+            
+          </div>
+        </div>
+    </div>
+    <br />
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+            <img class="w-full rounded-lg" src="<%= set.img_url %>" alt="Set Image">
+        </div>
+        <div class="prose">
+            <strong>Year Released: </strong><%= set.year %> <br />
+            <strong>Theme:</strong> <%= set.theme %><br />
+            <strong>Number of Parts:</strong> <%= set.num_parts %><br />
+            <span id="quote"></span>
+            <br />
+            <br />
+            <br />
+            <a href="#" onclick="history.back(); return false;" class="btn btn-primary">Go Back</a>
+        </div>
+
+    </div>
+      
+  </div>
+
+  <br />
+
+</body>
+
+</html>
