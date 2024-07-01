@@ -8,7 +8,9 @@ app.set('view engine', 'ejs');
 
 const HTTP_PORT = process.env.PORT || 8080;
 
-app.use(express.static('public'));
+//app.use(express.static('public'));
+app.use(express.static(__dirname + '/public')); //Vercel
+app.set('views', __dirname + '/views');
 
 
 app.get('/', (req, res) => {
@@ -22,13 +24,13 @@ app.get('/about', (req, res) => {
 });
 
 app.get("/lego/sets", async (req,res)=>{
-
+  let sets = [];
   try{
     if(req.query.theme){
-      let sets = await legoData.getSetsByTheme(req.query.theme);
+      sets = await legoData.getSetsByTheme(req.query.theme);
       //res.send(sets);
     }else{
-      let sets = await legoData.getAllSets();
+      sets = await legoData.getAllSets();
       //res.send(sets);
     }
     res.render('sets', {sets: sets});
